@@ -23,12 +23,12 @@ output "ecr_repository_url" {
   value       = aws_ecr_repository.app_repo.repository_url
 }
 
-output "standalone_ec2_public_dns" {
-  description = "Public DNS of the standalone EC2 instance"
-  value       = aws_instance.standalone_ec2.public_dns
-}
-
-output "standalone_ec2_public_ip" {
-  description = "Public IP of the standalone EC2 instance"
-  value       = aws_instance.standalone_ec2.public_ip
-}
+# output "standalone_ec2_public_dns" {
+#   description = "Public DNS of the standalone EC2 instance"
+#   value       = aws_instance.standalone_ec2.public_dns
+# }
+# 
+# output "standalone_ec2_public_ip" {
+#   description = "Public IP of the standalone EC2 instance"
+#   value       = aws_instance.standalone_ec2.public_ip
+# }

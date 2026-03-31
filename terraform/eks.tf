@@ -13,10 +13,10 @@ module "eks" {
 
   eks_managed_node_groups = {
     generic_node_group = {
-      instance_types = ["t2.micro"] # Changed from t3.medium to fit in 1 vCPU
+      instance_types = ["t2.small"] # 1 vCPU, 2GB RAM (Stable)
       min_size       = 1
-      max_size       = 2
-      desired_size   = 1 # Reduced from 2 to stay within vCPU limits
+      max_size       = 1
+      desired_size   = 1 # Exactly 1 vCPU used across the whole account
     }
   }
 
