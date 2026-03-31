@@ -1,0 +1,11 @@
+{
+  "name": "sample-app",
+  "version": "1.0.0",
+  "description": "Sample application for CI/CD deployment to EKS",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Antigravity",
+  "license": "MIT"
+}
