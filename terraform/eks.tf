@@ -26,19 +26,15 @@ module "eks" {
   }
 }
 
-# The aws_eks_cluster data source allows grabbing auth info for kubernetes provider
-data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_name
-  depends_on = [module.eks]
-}
-
+# The aws_eks_cluster_auth data source allows grabbing auth info for kubernetes provider
+# We remove the data source 'aws_eks_cluster' and use the module outputs directly 
+# to avoid circular dependencies (Cycles).
 data "aws_eks_cluster_auth" "cluster" {
   name = module.eks.cluster_name
-  depends_on = [module.eks]
 }
 
 provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = data.aws_eks_cluster_auth.cluster.token
 }
