@@ -3,6 +3,9 @@ pipeline {
     
     // Defines variables used throughout the pipeline
     environment {
+        // Add Git Bash paths to PATH for Windows agents to find 'sh', 'sed', 'curl', etc.
+        PATH = "C:\\Program Files\\Git\\bin;C:\\Program Files\\Git\\usr\\bin;${env.PATH}"
+        
         AWS_REGION     = 'eu-west-2'
         CLUSTER_NAME   = 'slack-notified-eks-cluster'
         ECR_REPO       = 'sample-app-repo'
