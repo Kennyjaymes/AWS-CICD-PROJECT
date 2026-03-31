@@ -3,7 +3,7 @@ module "eks" {
   version = "~> 19.16"
 
   cluster_name    = var.cluster_name
-  cluster_version = "1.28" # Replace as needed
+  cluster_version = "1.30" # Updated for better AMI compatibility
 
   vpc_id                   = module.vpc.vpc_id
   subnet_ids               = module.vpc.private_subnets
@@ -13,10 +13,10 @@ module "eks" {
 
   eks_managed_node_groups = {
     generic_node_group = {
-      instance_types = ["t3.medium"]
+      instance_types = ["t2.micro"] # Changed from t3.medium to fit in 1 vCPU
       min_size       = 1
-      max_size       = 3
-      desired_size   = 2
+      max_size       = 2
+      desired_size   = 1 # Reduced from 2 to stay within vCPU limits
     }
   }
 

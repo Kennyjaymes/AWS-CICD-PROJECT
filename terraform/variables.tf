@@ -31,5 +31,5 @@ variable "ec2_key_name" {
 variable "ec2_instance_type" {
   description = "Instance type for the standalone EC2"
   type        = string
-  default     = "t3.micro"
+  default     = "t2.micro"
 }
