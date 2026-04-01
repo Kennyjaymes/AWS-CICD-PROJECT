@@ -11,12 +11,12 @@ module "eks" {
 
   cluster_endpoint_public_access = true
 
-  eks_managed_node_groups = {
+  self_managed_node_groups = {
     generic_node_group = {
-      instance_types = ["t2.small"] # 1 vCPU, 2GB RAM (Stable)
-      min_size       = 1
-      max_size       = 1
-      desired_size   = 1 # Exactly 1 vCPU used across the whole account
+      instance_type = "t2.small" # 1 vCPU, 2GB RAM (Stable)
+      min_size      = 1
+      max_size      = 1
+      desired_size  = 1 # Exactly 1 vCPU used across the whole account
     }
   }
 
