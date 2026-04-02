@@ -25,7 +25,7 @@ pipeline {
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: "${AWS_CREDENTIALS_ID}"
                     ]]) {
-                        bat 'terraform init'
+                        bat 'terraform init -upgrade'
                         bat 'terraform apply -auto-approve'
                         
                         script {
