@@ -1,6 +1,6 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.16"
+  version = "~> 21.0"
 
   name               = var.cluster_name
   kubernetes_version = "1.30"
@@ -11,15 +11,17 @@ module "eks" {
 
   endpoint_public_access = true
 
-  enable_cluster_creator_admin_permissions = true
+  # Enable Cluster Access Management (API-based)
+  authentication_mode                         = "API_AND_CONFIG_MAP"
+  enable_cluster_creator_admin_permissions     = true
 
-  self_managed_node_groups = {
+  eks_managed_node_groups = {
     generic_node_group = {
-      instance_type = "t2.small" # 1 vCPU, 2GB RAM (Stable)
-      ami_type      = "AL2023_x86_64_STANDARD"
-      min_size      = 1
-      max_size      = 1
-      desired_size  = 1 # Exactly 1 vCPU used across the whole account
+      instance_types = ["t2.small"] # 1 vCPU, 2GB RAM (Stable)
+      ami_type       = "AL2023_x86_64_STANDARD"
+      min_size       = 1
+      max_size       = 1
+      desired_size   = 1 # Exactly 1 vCPU used across the whole account
     }
   }
 
