@@ -1,0 +1,26 @@
+# Local AWS CLI Binaries
+aws-cli-standalone/
+install_aws_cli.ps1
+AWSCLIV2.msi
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Jenkins and IDEs
+.project
+.classpath
+.settings/
+.idea/
+.vscode/
+
+# Logs
+*.log
+msilog.txt
+msilog_utf8.txt
+log_retried.txt
+log_retried_2.txt
+log_retried_3.txt
+install_log.txt

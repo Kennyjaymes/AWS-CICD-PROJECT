@@ -8,6 +8,9 @@ pipeline {
         ECR_REPO       = 'sample-app-repo'
         IMAGE_TAG      = "${env.BUILD_ID}"
         
+        // Standalone AWS CLI path
+        PATH = "C:\\Users\\USER\\Desktop\\aws-cicd-project\\aws-cli-standalone\\Amazon\\AWSCLIV2;${env.PATH}"
+        
         // Ensure you have these credentials configured in Jenkins Credentials Manager
         AWS_CREDENTIALS_ID = 'aws-credentials' // AWS Credential type
         SLACK_WEBHOOK_CREDENTIAL_ID = 'slack-webhook-url' // Secret Text type

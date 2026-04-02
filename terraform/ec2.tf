@@ -8,7 +8,7 @@
 # 
 #   filter {
 #     name   = "name"
-#     values = [""]
+#     values = ["al2023-ami-2023.0.*-x86_64"]
 #   }
 # }
 # 
