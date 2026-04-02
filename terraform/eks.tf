@@ -17,11 +17,11 @@ module "eks" {
 
   eks_managed_node_groups = {
     generic_node_group = {
-      instance_types = ["t2.small"] # 1 vCPU, 2GB RAM (Stable)
+      instance_types = ["t3.small"] # 2 vCPU, 2GB RAM (Stable)
       ami_type       = "AL2023_x86_64_STANDARD"
       min_size       = 1
       max_size       = 1
-      desired_size   = 1 # Exactly 1 vCPU used across the whole account
+      desired_size   = 1 # Exactly 2 vCPU used across the whole account
     }
   }
 
