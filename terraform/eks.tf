@@ -1,5 +1,5 @@
 module "eks" {
-  source  = "github.com/terraform-aws-modules/terraform-aws-eks?ref=v21.0.1"
+  source = "./modules/eks"
 
   name               = var.cluster_name
   kubernetes_version = "1.30"
