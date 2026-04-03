@@ -28,6 +28,8 @@ pipeline {
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: "${AWS_CREDENTIALS_ID}"
                     ]]) {
+                        bat 'if exist .terraform rmdir /s /q .terraform'
+                        bat 'if exist .terraform.lock.hcl del /q .terraform.lock.hcl'
                         bat 'terraform init'
                         bat 'terraform apply -auto-approve'
                         
