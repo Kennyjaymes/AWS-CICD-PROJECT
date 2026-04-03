@@ -509,7 +509,7 @@ module "aws_vpc_cni_ipv6_pod_identity" {
 }
 
 module "ebs_kms_key" {
-  source = "github.com/terraform-aws-modules/terraform-aws-kms"
+  source = "../kms"
   Version = "2012-10-17"
 
   description = "Customer managed key to encrypt EKS managed node group volumes"

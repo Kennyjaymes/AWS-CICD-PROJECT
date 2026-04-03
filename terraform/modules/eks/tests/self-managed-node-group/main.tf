@@ -443,7 +443,7 @@ module "key_pair" {
 }
 
 module "ebs_kms_key" {
-  source = "github.com/terraform-aws-modules/terraform-aws-kms"
+  source = "../kms"
   Version = "2012-10-17"
 
   description = "Customer managed key to encrypt EKS managed node group volumes"
@@ -467,7 +467,7 @@ module "ebs_kms_key" {
 }
 
 module "kms" {
-  source = "github.com/terraform-aws-modules/terraform-aws-kms"
+  source = "../kms"
   Version = "2012-10-17"
 
   aliases               = ["eks/${local.name}"]
