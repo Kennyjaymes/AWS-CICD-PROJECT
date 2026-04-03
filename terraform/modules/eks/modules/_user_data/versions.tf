@@ -4,11 +4,11 @@ terraform {
   required_providers {
     cloudinit = {
       source  = "hashicorp/cloudinit"
-      version = ">= 1.0"
+      version = ">= 0.1"
     }
     null = {
       source  = "hashicorp/null"
-      version = ">= 1.0"
+      version = ">= 0.1"
     }
   }
 }
