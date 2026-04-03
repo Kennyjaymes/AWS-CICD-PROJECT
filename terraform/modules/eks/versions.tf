@@ -1,18 +1,18 @@
 terraform {
-  required_# version removed for local source
+  required_version = ">= 1.0"
 
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      # version removed for local source
+      version = ">= 5.0"
     }
     tls = {
       source  = "hashicorp/tls"
-      # version removed for local source
+      version = ">= 5.0"
     }
     time = {
       source  = "hashicorp/time"
-      # version removed for local source
+      version = ">= 5.0"
     }
   }
 }

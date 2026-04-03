@@ -1,10 +1,10 @@
 terraform {
-  required_# version removed for local source
+  required_version = ">= 1.0"
 
   required_providers {
     local = {
       source  = "hashicorp/local"
-      # version removed for local source
+      version = ">= 5.0"
     }
   }
 }

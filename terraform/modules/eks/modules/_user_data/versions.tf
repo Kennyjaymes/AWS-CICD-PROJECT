@@ -1,14 +1,14 @@
 terraform {
-  required_# version removed for local source
+  required_version = ">= 1.0"
 
   required_providers {
     cloudinit = {
       source  = "hashicorp/cloudinit"
-      # version removed for local source
+      version = ">= 5.0"
     }
     null = {
       source  = "hashicorp/null"
-      # version removed for local source
+      version = ">= 5.0"
     }
   }
 }
