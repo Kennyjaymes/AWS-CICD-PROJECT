@@ -15,8 +15,8 @@ pipeline {
         AWS_CREDENTIALS_ID = 'aws-credentials' // AWS Credential type
         SLACK_WEBHOOK_CREDENTIAL_ID = 'slack-webhook-url' // Secret Text type
         
-        // Bypass local Docker Desktop proxy (3128) for ECR and AWS services
-        NO_PROXY = "localhost,127.0.0.1,667736132185.dkr.ecr.eu-west-2.amazonaws.com,eks.eu-west-2.amazonaws.com,.eks.amazonaws.com"
+        // Bypass local Docker Desktop proxy (3128) for ECR and AWS services, including registry.terraform.io
+        NO_PROXY = "localhost,127.0.0.1,667736132185.dkr.ecr.eu-west-2.amazonaws.com,eks.eu-west-2.amazonaws.com,.eks.amazonaws.com,registry.terraform.io"
     }
 
     stages {
@@ -28,7 +28,7 @@ pipeline {
                         $class: 'AmazonWebServicesCredentialsBinding',
                         credentialsId: "${AWS_CREDENTIALS_ID}"
                     ]]) {
-                        bat 'terraform init -upgrade'
+                        bat 'terraform init'
                         bat 'terraform apply -auto-approve'
                         
                         script {
