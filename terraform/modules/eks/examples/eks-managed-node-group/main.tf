@@ -30,7 +30,7 @@ locals {
 
 module "vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name = local.name
   cidr = local.vpc_cidr

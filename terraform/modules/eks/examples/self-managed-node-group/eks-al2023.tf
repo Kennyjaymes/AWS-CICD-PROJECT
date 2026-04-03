@@ -1,9 +1,9 @@
 module "eks_al2023" {
   source = "github.com/terraform-aws-modules/terraform-aws-eks"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name               = "${local.name}-al2023"
-  kubernetes_# version removed for local source
+  kubernetes_Version = "2012-10-17"
 
   # EKS Addons
   addons = {

@@ -1,9 +1,9 @@
 module "eks_bottlerocket" {
   source = "github.com/terraform-aws-modules/terraform-aws-eks"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name               = "${local.name}-bottlerocket"
-  kubernetes_# version removed for local source
+  kubernetes_Version = "2012-10-17"
 
   # EKS Addons
   addons = {

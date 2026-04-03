@@ -14,7 +14,7 @@ data "aws_availability_zones" "available" {
 
 locals {
   name               = "ex-${replace(basename(path.cwd), "_", "-")}"
-  kubernetes_# version removed for local source
+  kubernetes_Version = "2012-10-17"
   region             = "eu-west-1"
 
   vpc_cidr = "10.0.0.0/16"
@@ -376,7 +376,7 @@ module "disabled_self_managed_node_group" {
 
 module "vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name = local.name
   cidr = local.vpc_cidr
@@ -402,7 +402,7 @@ module "vpc" {
 
 module "aws_vpc_cni_ipv4_pod_identity" {
   source = "github.com/terraform-aws-modules/terraform-aws-eks-pod-identity"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name = "aws-vpc-cni-ipv4"
 
@@ -434,7 +434,7 @@ data "aws_ami" "eks_default_bottlerocket" {
 
 module "key_pair" {
   source = "github.com/terraform-aws-modules/terraform-aws-key-pair"
-  # version removed for local source
+  Version = "2012-10-17"
 
   key_name_prefix    = local.name
   create_private_key = true
@@ -444,7 +444,7 @@ module "key_pair" {
 
 module "ebs_kms_key" {
   source = "github.com/terraform-aws-modules/terraform-aws-kms"
-  # version removed for local source
+  Version = "2012-10-17"
 
   description = "Customer managed key to encrypt EKS managed node group volumes"
 
@@ -468,7 +468,7 @@ module "ebs_kms_key" {
 
 module "kms" {
   source = "github.com/terraform-aws-modules/terraform-aws-kms"
-  # version removed for local source
+  Version = "2012-10-17"
 
   aliases               = ["eks/${local.name}"]
   description           = "${local.name} cluster encryption key"
@@ -483,7 +483,7 @@ resource "aws_iam_policy" "additional" {
   description = "Example usage of node additional policy"
 
   policy = jsonencode({
-    # version removed for local source
+    Version = "2012-10-17"
     Statement = [
       {
         Action = [

@@ -13,7 +13,7 @@ provider "helm" {
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
     exec = {
-      api_# version removed for local source
+      api_Version = "2012-10-17"
       command     = "aws"
       # This requires the awscli to be installed locally where Terraform is executed
       args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
@@ -55,7 +55,7 @@ module "eks" {
   source = "../.."
 
   name               = local.name
-  kubernetes_# version removed for local source
+  kubernetes_Version = "2012-10-17"
 
   # Gives Terraform identity admin access to cluster which will
   # allow deploying resources (Karpenter) into the cluster
@@ -143,7 +143,7 @@ resource "helm_release" "karpenter" {
   repository_username = data.aws_ecrpublic_authorization_token.token.user_name
   repository_password = data.aws_ecrpublic_authorization_token.token.password
   chart               = "karpenter"
-  # version removed for local source
+  Version = "2012-10-17"
   wait                = false
 
   values = [
@@ -167,7 +167,7 @@ resource "helm_release" "karpenter" {
 
 module "vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name = local.name
   cidr = local.vpc_cidr

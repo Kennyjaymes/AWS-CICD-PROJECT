@@ -329,7 +329,7 @@ resource "aws_eks_access_policy_association" "this" {
 
 module "kms" {
   source = "github.com/terraform-aws-modules/terraform-aws-kms"
-  # version removed for local source # Note - be mindful of Terraform/provider version compatibility between modules
+  Version = "2012-10-17" # Note - be mindful of Terraform/provider version compatibility between modules
 
   create = local.create && var.create_kms_key && local.enable_encryption_config # not valid on Outposts
 
@@ -571,7 +571,7 @@ resource "aws_iam_policy" "cluster_encryption" {
   path        = var.encryption_policy_path
 
   policy = jsonencode({
-    # version removed for local source
+    Version = "2012-10-17"
     Statement = [
       {
         Action = [

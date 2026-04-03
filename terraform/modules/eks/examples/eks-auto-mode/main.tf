@@ -12,7 +12,7 @@ data "aws_availability_zones" "available" {
 
 locals {
   name               = "ex-${basename(path.cwd)}"
-  kubernetes_# version removed for local source
+  kubernetes_Version = "2012-10-17"
   region             = "us-west-2"
 
   vpc_cidr = "10.0.0.0/16"
@@ -61,7 +61,7 @@ module "disabled_eks" {
 
 module "vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name = local.name
   cidr = local.vpc_cidr

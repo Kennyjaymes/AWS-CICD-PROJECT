@@ -142,7 +142,7 @@ resource "random_pet" "this" {
 # S3 Bucket
 module "s3_bucket" {
   source = "github.com/terraform-aws-modules/terraform-aws-s3-bucket"
-  # version removed for local source
+  Version = "2012-10-17"
 
   bucket        = local.s3_bucket_name
   policy        = data.aws_iam_policy_document.flow_log_s3.json

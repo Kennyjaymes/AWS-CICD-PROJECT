@@ -8,7 +8,7 @@ provider "helm" {
     cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
 
     exec = {
-      api_# version removed for local source
+      api_Version = "2012-10-17"
       command     = "aws"
       # This requires the awscli to be installed locally where Terraform is executed
       args = ["eks", "get-token", "--cluster-name", module.eks.cluster_name]
@@ -20,7 +20,7 @@ locals {
   name   = "ex-${basename(path.cwd)}"
   region = "us-west-2"
 
-  kubernetes_# version removed for local source
+  kubernetes_Version = "2012-10-17"
 
   tags = {
     Test       = local.name
@@ -106,7 +106,7 @@ data "aws_availability_zones" "available" {
 
 module "vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name = local.name
   cidr = local.vpc_cidr

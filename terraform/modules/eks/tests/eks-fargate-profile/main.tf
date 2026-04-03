@@ -12,7 +12,7 @@ data "aws_availability_zones" "available" {
 
 locals {
   name               = "ex-${basename(path.cwd)}"
-  kubernetes_# version removed for local source
+  kubernetes_Version = "2012-10-17"
   region             = "eu-west-1"
 
   vpc_cidr = "10.0.0.0/16"
@@ -123,7 +123,7 @@ module "disabled_fargate_profile" {
 
 module "vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # version removed for local source
+  Version = "2012-10-17"
 
   name = local.name
   cidr = local.vpc_cidr
@@ -151,7 +151,7 @@ resource "aws_iam_policy" "additional" {
   name = "${local.name}-additional"
 
   policy = jsonencode({
-    # version removed for local source
+    Version = "2012-10-17"
     Statement = [
       {
         Action = [

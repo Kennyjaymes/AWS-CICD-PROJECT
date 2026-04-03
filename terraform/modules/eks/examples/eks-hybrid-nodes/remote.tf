@@ -29,7 +29,7 @@ resource "aws_ssm_activation" "this" {
 
 module "key_pair" {
   source = "github.com/terraform-aws-modules/terraform-aws-key-pair"
-  # version removed for local source
+  Version = "2012-10-17"
 
   providers = {
     aws = aws.remote
@@ -208,7 +208,7 @@ resource "helm_release" "cilium" {
   name       = "cilium"
   repository = "https://helm.cilium.io/"
   chart      = "cilium"
-  # version removed for local source
+  Version = "2012-10-17"
   namespace  = "kube-system"
   wait       = false
 
@@ -253,7 +253,7 @@ data "aws_availability_zones" "remote" {
 
 module "remote_node_vpc" {
   source = "github.com/terraform-aws-modules/terraform-aws-vpc"
-  # version removed for local source
+  Version = "2012-10-17"
 
   providers = {
     aws = aws.remote
