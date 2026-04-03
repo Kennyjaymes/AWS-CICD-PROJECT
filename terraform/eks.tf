@@ -12,8 +12,8 @@ module "eks" {
 
   # Enable Cluster Access Management (API-based)
   authentication_mode                         = "API_AND_CONFIG_MAP"
-  # Disable explicit duplicate creation of access entry for cluster creator
-  enable_cluster_creator_admin_permissions     = false
+  # Re-enable to match existing resource for import
+  enable_cluster_creator_admin_permissions     = true
 
   eks_managed_node_groups = {
     generic_node_group = {
