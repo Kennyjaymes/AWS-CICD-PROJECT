@@ -15,7 +15,7 @@ This project contains a comprehensive, automated CI/CD pipeline and Infrastructu
    - **VPC Module**: Sets up public, private, and **intra** subnets (specifically for the EKS control plane) across 3 Availability Zones.
    - **EKS Module**: Creates a managed Kubernetes cluster (`v1.28`) with an auto-scaling node group of `t3.medium` instances.
    - **ECR**: A private registry with image scanning enabled to store your application's builds.
-   - **EC2**: A standalone Linux Server, intended as a utility/test node. (Note: This is currently commented out in `ec2.tf` to stay within AWS account vCPU limits).
+   - **EC2**: A standalone Linux Server, intended as a utility/test node. 
    - **Default Tags**: Every resource created is automatically tagged with `Project`, `Environment`, and `ManagedBy` for easy cost tracking.
 
 2. **Application (Node.js)**
