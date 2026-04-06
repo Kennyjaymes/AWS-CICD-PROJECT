@@ -15,7 +15,7 @@ This project contains a comprehensive, automated CI/CD pipeline and Infrastructu
    - **VPC Module**: Sets up public, private, and **intra** subnets (specifically for the EKS control plane) across 3 Availability Zones.
    - **EKS Module**: Creates a managed Kubernetes cluster (`v1.28`) with an auto-scaling node group of `t3.medium` instances.
    - **ECR**: A private registry with image scanning enabled to store your application's builds.
-   - **EC2**: A standalone Jenkins Agent server, pre-configured via `user_data` with all required tools (Docker, Terraform, AWS CLI v2, kubectl, and Java 11).
+   - **EC2**: A standalone Linux Server, intended as a utility/test node. (Note: This is currently commented out in `ec2.tf` to stay within AWS account vCPU limits).
    - **Default Tags**: Every resource created is automatically tagged with `Project`, `Environment`, and `ManagedBy` for easy cost tracking.
 
 2. **Application (Node.js)**
@@ -24,6 +24,7 @@ This project contains a comprehensive, automated CI/CD pipeline and Infrastructu
 
 3. **Continuous Integration/Continuous Deployment (Jenkins)**
    - Orchestrates the full lifecycle: `Terraform Provisioning -> Docker Build -> ECR Push -> EKS Deployment`.
+   - Designed for execution on a Windows-based Jenkins build agent (uses `bat` and `powershell`).
    - Real-time Slack notifications for every success or failure in the pipeline.
 
 ## Prerequisites
@@ -48,7 +49,7 @@ Before running this pipeline, ensure your Jenkins environment is ready:
 │   ├── vpc.tf          # Multi-AZ networking (Public/Private/Intra)
 │   ├── eks.tf          # EKS Cluster & Managed Node Groups
 │   ├── ecr.tf          # Private Container Registry
-│   ├── ec2.tf          # Jenkins Agent Node with bootstrap script
+│   ├── ec2.tf          # Standalone Linux Server (Utility Host)
 │   └── outputs.tf      # Dynamic URL & ID outputs for Jenkins
 ├── app/                # Node.js source code
 ├── k8s/                # Kubernetes Deployment & Service manifests
@@ -71,7 +72,7 @@ Before running this pipeline, ensure your Jenkins environment is ready:
 1. **Infrastructure Config**: 
    - Check `terraform/variables.tf` to ensure `aws_region` is set correctly (Default: `us-east-1`).
    - If you want persistent state, uncomment and update the `backend "s3"` block in `terraform/provider.tf`.
-2. **Key Pair**: If you need SSH access to the Jenkins Agent, add your existing AWS Key Pair name to `ec2_key_name` in `variables.tf`.
+2. **Key Pair**: If you need SSH access to the standalone EC2 server, add your existing AWS Key Pair name to `ec2_key_name` in `variables.tf`.
 3. **CI/CD Hookup**:
    - Push this code to your GitHub/GitLab repository.
    - Point a Jenkins Pipeline job at your repository's `Jenkinsfile`.
