@@ -20,7 +20,7 @@ pipeline {
     }
 
     stages {
-        stage('Terraform Init & Apply') {
+        stage('Terraform Init') {
             steps {
                 dir('terraform') {
                     // Binds the AWS Credentials so Terraform can use them
@@ -31,6 +31,30 @@ pipeline {
                         bat 'if exist .terraform rmdir /s /q .terraform'
                         bat 'if exist .terraform.lock.hcl del /q .terraform.lock.hcl'
                         bat 'terraform init'
+                    }
+                }
+            }
+            post {
+                success {
+                    withCredentials([string(credentialsId: "${SLACK_WEBHOOK_CREDENTIAL_ID}", variable: 'SLACK_WEBHOOK')]) {
+                        bat "curl -X POST -H \"Content-type: application/json\" --data \"{\\\"text\\\":\\\"✅ *Terraform Init* successful (Build #${env.BUILD_ID})\\\"}\" %SLACK_WEBHOOK%"
+                    }
+                }
+                failure {
+                    withCredentials([string(credentialsId: "${SLACK_WEBHOOK_CREDENTIAL_ID}", variable: 'SLACK_WEBHOOK')]) {
+                        bat "curl -X POST -H \"Content-type: application/json\" --data \"{\\\"text\\\":\\\"❌ *Terraform Init* failed (Build #${env.BUILD_ID})\\\"}\" %SLACK_WEBHOOK%"
+                    }
+                }
+            }
+        }
+
+        stage('Terraform Apply') {
+            steps {
+                dir('terraform') {
+                    withCredentials([[
+                        $class: 'AmazonWebServicesCredentialsBinding',
+                        credentialsId: "${AWS_CREDENTIALS_ID}"
+                    ]]) {
                         bat 'terraform apply -auto-approve'
                         
                         script {
@@ -43,12 +67,12 @@ pipeline {
             post {
                 success {
                     withCredentials([string(credentialsId: "${SLACK_WEBHOOK_CREDENTIAL_ID}", variable: 'SLACK_WEBHOOK')]) {
-                        bat "curl -X POST -H \"Content-type: application/json\" --data \"{\\\"text\\\":\\\"✅ *Terraform Provisioning* successful (Build #${env.BUILD_ID})\\\"}\" %SLACK_WEBHOOK%"
+                        bat "curl -X POST -H \"Content-type: application/json\" --data \"{\\\"text\\\":\\\"✅ *Terraform Apply* successful (Build #${env.BUILD_ID})\\\"}\" %SLACK_WEBHOOK%"
                     }
                 }
                 failure {
                     withCredentials([string(credentialsId: "${SLACK_WEBHOOK_CREDENTIAL_ID}", variable: 'SLACK_WEBHOOK')]) {
-                        bat "curl -X POST -H \"Content-type: application/json\" --data \"{\\\"text\\\":\\\"❌ *Terraform Provisioning* failed (Build #${env.BUILD_ID})\\\"}\" %SLACK_WEBHOOK%"
+                        bat "curl -X POST -H \"Content-type: application/json\" --data \"{\\\"text\\\":\\\"❌ *Terraform Apply* failed (Build #${env.BUILD_ID})\\\"}\" %SLACK_WEBHOOK%"
                     }
                 }
             }
