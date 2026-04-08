@@ -58,10 +58,11 @@ Before running this pipeline, ensure your Jenkins environment is ready:
 
 ## Pipeline Stages Explained
 
-1. **Terraform Init & Apply**: Provisions the AWS environment. The S3 backend is currently **commented out** in `provider.tf` to allow for immediate testing with local state.
-2. **Build Container Image**: Containerizes the Node.js app using the dynamically retrieved ECR URL.
-3. **Push to ECR**: Authenticates the Docker daemon to AWS and pushes the image tagged with the Jenkins `BUILD_ID`.
-4. **Deploy to EKS**: 
+1. **Terraform Init**: Initializes the configuration and downloads the necessary providers.
+2. **Terraform Apply**: Provisions the AWS environment (VPC, EKS, ECR). The S3 backend is currently **commented out** in `provider.tf` to allow for immediate testing with local state.
+3. **Build Container Image**: Containerizes the Node.js app using the dynamically retrieved ECR URL.
+4. **Push to ECR**: Authenticates the Docker daemon to AWS and pushes the image tagged with the Jenkins `BUILD_ID`.
+5. **Deploy to EKS**: 
     - Updates local `kubeconfig`.
     - Swaps the image placeholder in `k8s/deployment.yaml`.
     - Applies `kubectl` manifests to roll out the new version.
