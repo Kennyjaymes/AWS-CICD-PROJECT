@@ -12,8 +12,8 @@ This project contains a comprehensive, automated CI/CD pipeline and Infrastructu
 ## Architecture
 
 1. **Infrastructure (Terraform)**
-   - **VPC Module**: Sets up public, private, and **intra** subnets (specifically for the EKS control plane) across 3 Availability Zones.
-   - **EKS Module**: Creates a managed Kubernetes cluster (`v1.28`) with an auto-scaling node group of `t3.medium` instances.
+   - **VPC Module**: Sets up public, private, and **intra** subnets (specifically for the EKS control plane) across 3 Availability Zones in `eu-west-2`.
+   - **EKS Module**: Creates a managed Kubernetes cluster (`v1.30`) with an auto-scaling node group of `t3.small` instances (optimized for vCPU quotas).
    - **ECR**: A private registry with image scanning enabled to store your application's builds.
    - **Default Tags**: Every resource created is automatically tagged with `Project`, `Environment`, and `ManagedBy` for easy cost tracking.
 
@@ -43,16 +43,17 @@ Before running this pipeline, ensure your Jenkins environment is ready:
 
 ```text
 ├── terraform/          # Infrastructure definition
-│   ├── provider.tf     # AWS Config & S3 Backend (Local by default)
-│   ├── variables.tf    # Region, CIDRs, and Cluster names
+│   ├── provider.tf     # AWS Config & S3 Backend
+│   ├── variables.tf    # Region (eu-west-2), CIDRs, and Cluster names
 │   ├── vpc.tf          # Multi-AZ networking (Public/Private/Intra)
 │   ├── eks.tf          # EKS Cluster & Managed Node Groups
 │   ├── ecr.tf          # Private Container Registry
 │   └── outputs.tf      # Dynamic URL & ID outputs for Jenkins
-├── app/                # Node.js source code
+├── app/                # Node.js source code (server.js)
 ├── k8s/                # Kubernetes Deployment & Service manifests
-├── Dockerfile          # Container build specification
-└── Jenkinsfile         # The Pipeline Orchestrator
+├── Dockerfile          # Container build specification (Node 20 Alpine)
+├── Jenkinsfile         # The Pipeline Orchestrator (PowerShell/Bat)
+└── AWSCLIV2.msi        # Standalone AWS CLI installer
 ```
 
 ## Pipeline Stages Explained
@@ -68,7 +69,7 @@ Before running this pipeline, ensure your Jenkins environment is ready:
 ## Setup Instructions
 
 1. **Infrastructure Config**: 
-   - Check `terraform/variables.tf` to ensure `aws_region` is set correctly (Default: `us-east-1`).
+   - Check `terraform/variables.tf` to ensure `aws_region` is set correctly (Default: `eu-west-2`).
    - If you want persistent state, uncomment and update the `backend "s3"` block in `terraform/provider.tf`.
 2. **CI/CD Hookup**:
    - Push this code to your GitHub/GitLab repository.
