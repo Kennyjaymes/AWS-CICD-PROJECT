@@ -8,6 +8,7 @@ AWSCLIV2.msi
 *.tfstate
 *.tfstate.backup
 .terraform.lock.hcl
+tfplan
 
 # Jenkins and IDEs
 .project
